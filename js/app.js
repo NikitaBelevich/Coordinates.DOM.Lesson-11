@@ -43,29 +43,32 @@ function showNote(anchor, position, html) {
 function positionAt(anchor, position, elem) {
     const coordsBlockquote = getCoords(anchor); // получим все нужные нам координаты в виде объекта
 
-    if (position == 'top') {
-        elem.style.cssText = `
+
+    switch (position) {
+        case 'top':
+            elem.style.cssText = `
                             top: ${coordsBlockquote.pageTop - elem.offsetHeight}px;
                             left: ${coordsBlockquote.left}px;
                          `;
-    }
-    if (position == 'bottom') {
-        elem.style.cssText = `
+            break;
+        case 'bottom':
+            elem.style.cssText = `
                             left: ${coordsBlockquote.left}px;
                             top: ${coordsBlockquote.pageBottom}px;
                          `;
-    }
-    if (position == 'right') {
-        elem.style.cssText = `
+            break;
+        case 'right':
+            elem.style.cssText = `
                             left: ${coordsBlockquote.right}px;
                             top: ${coordsBlockquote.pageTop}px;
                          `;
-    }
-    if (position == 'left') {
-        elem.style.cssText = `
+            break;
+        case 'left':
+            elem.style.cssText = `
                             left: ${coordsBlockquote.right - elem.offsetWidth}px;
                             top: ${coordsBlockquote.pageBottom}px;
                          `;
+            break;
     }
 
     // console.warn('window.pageYOffset', currentYScrollout);
