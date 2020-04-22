@@ -41,37 +41,58 @@ function showNote(anchor, position, html) {
 }
 
 function positionAt(anchor, position, elem) {
-    let coordsBlockquote = anchor.getBoundingClientRect();
-    let {x, y, width, height, top, right, bottom, left} = coordsBlockquote;
-    const currentYScrollout = window.pageYOffset;
+    const coordsBlockquote = getCoords(anchor); // получим все нужные нам координаты в виде объекта
 
     if (position == 'top') {
         elem.style.cssText = `
-                            ${position}: ${top + currentYScrollout - elem.offsetHeight}px;
-                            left: ${left}px;
+                            top: ${coordsBlockquote.pageTop - elem.offsetHeight}px;
+                            left: ${coordsBlockquote.left}px;
                          `;
     }
     if (position == 'bottom') {
         elem.style.cssText = `
-                            left: ${left}px;
-                            top: ${bottom + currentYScrollout}px;
+                            left: ${coordsBlockquote.left}px;
+                            top: ${coordsBlockquote.pageBottom}px;
                          `;
     }
     if (position == 'right') {
         elem.style.cssText = `
-                            left: ${right}px;
-                            top: ${top + currentYScrollout}px;
+                            left: ${coordsBlockquote.right}px;
+                            top: ${coordsBlockquote.pageTop}px;
                          `;
     }
     if (position == 'left') {
         elem.style.cssText = `
-                            left: ${right - elem.offsetWidth}px;
-                            top: ${bottom + currentYScrollout}px;
+                            left: ${coordsBlockquote.right - elem.offsetWidth}px;
+                            top: ${coordsBlockquote.pageBottom}px;
                          `;
     }
-    // console.table(coordsBlockquote); //coordinates
+
     // console.warn('window.pageYOffset', currentYScrollout);
     // console.warn('documentElement', document.documentElement.scrollTop);
+}
+
+//* функция для получения координат элемента, как относительных окна и документа(свои рассчёты координат)
+function getCoords(elem) {
+    const currentYScrollout = window.pageYOffset;
+    const coordsElem = elem.getBoundingClientRect();
+    let {x, y, width, height, top, right, bottom, left} = coordsElem;
+
+    const obj = {
+        pageTop: top + currentYScrollout,
+        pageBottom: bottom + currentYScrollout,
+
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        top: top,
+        right: right,
+        bottom: bottom,
+        left: left,
+    };
+    // console.warn(obj);
+    return obj;
 }
 //TODO Task 2
 
