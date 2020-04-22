@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 20px;
     /* background-color: rgb(228, 228, 228); */
+    height: 2500px;
 }
 input[type="number"]{
     width: 80px;
@@ -36,7 +37,7 @@ input[type="number"]{
 }
 
 .note {
-    position: fixed;
+    position: absolute;
     padding: 5px;
     border: 1px solid black;
     background: white;

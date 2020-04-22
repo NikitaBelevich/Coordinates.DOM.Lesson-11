@@ -27,7 +27,7 @@ buttonShowNotes.addEventListener('click', () => {
     showNote(blockquote, "top", "note above");
     showNote(blockquote, "bottom", "note below");
     showNote(blockquote, "right", "note at the right");
-    showNote(blockquote, "left", "note at the left");
+    showNote(blockquote, "left", "bottom right");
 });
 
 
@@ -43,32 +43,35 @@ function showNote(anchor, position, html) {
 function positionAt(anchor, position, elem) {
     let coordsBlockquote = anchor.getBoundingClientRect();
     let {x, y, width, height, top, right, bottom, left} = coordsBlockquote;
+    const currentYScrollout = window.pageYOffset;
 
     if (position == 'top') {
         elem.style.cssText = `
-                            ${position}: ${coordsBlockquote[position] - elem.offsetHeight}px;
+                            ${position}: ${top + currentYScrollout - elem.offsetHeight}px;
                             left: ${left}px;
                          `;
     }
     if (position == 'bottom') {
         elem.style.cssText = `
                             left: ${left}px;
-                            top: ${bottom}px;
+                            top: ${bottom + currentYScrollout}px;
                          `;
     }
     if (position == 'right') {
         elem.style.cssText = `
                             left: ${right}px;
-                            top: ${top}px;
+                            top: ${top + currentYScrollout}px;
                          `;
     }
     if (position == 'left') {
         elem.style.cssText = `
                             left: ${right - elem.offsetWidth}px;
-                            top: ${bottom}px;
+                            top: ${bottom + currentYScrollout}px;
                          `;
     }
     // console.table(coordsBlockquote); //coordinates
+    // console.warn('window.pageYOffset', currentYScrollout);
+    // console.warn('documentElement', document.documentElement.scrollTop);
 }
 //TODO Task 2
 
