@@ -20,14 +20,21 @@ document.addEventListener('click', function (e) {
 
 //TODO Task 2
 const div2 = document.querySelector('.task2');
-const buttonShowNotes = document.querySelector('.task2 button');
+const buttonShowExternalNotes = document.querySelector('.task2 button:nth-of-type(1)');
+const buttonShowInternalNotes = document.querySelector('.task2 button:nth-of-type(2)');
 const blockquote = document.querySelector('.task2 blockquote');
 
-buttonShowNotes.addEventListener('click', () => {
-    showNote(blockquote, "top", "note above");
-    showNote(blockquote, "bottom", "note below");
-    showNote(blockquote, "right", "note at the right");
-    showNote(blockquote, "left", "bottom right");
+buttonShowExternalNotes.addEventListener('click', () => {
+    showNote(blockquote, "top-out", "note above");
+    showNote(blockquote, "bottom-out", "note below");
+    showNote(blockquote, "right-out", "note at the right");
+    showNote(blockquote, "left-out", "bottom right");
+});
+buttonShowInternalNotes.addEventListener('click', () => {
+    showNote(blockquote, "top-in", "note top-in");
+    showNote(blockquote, "bottom-in", "note bottom-in");
+    showNote(blockquote, "right-in", "note at the right-in");
+    showNote(blockquote, "left-in", "note at the left-in");
 });
 
 
@@ -45,34 +52,57 @@ function positionAt(anchor, position, elem) {
 
 
     switch (position) {
-        case 'top':
+        case 'top-out':
             elem.style.cssText = `
                             top: ${coordsBlockquote.pageTop - elem.offsetHeight}px;
                             left: ${coordsBlockquote.left}px;
                          `;
             break;
-        case 'bottom':
+        case 'bottom-out':
             elem.style.cssText = `
                             left: ${coordsBlockquote.left}px;
                             top: ${coordsBlockquote.pageBottom}px;
                          `;
             break;
-        case 'right':
+        case 'right-out':
             elem.style.cssText = `
                             left: ${coordsBlockquote.right}px;
                             top: ${coordsBlockquote.pageTop}px;
                          `;
             break;
-        case 'left':
+        case 'left-out':
             elem.style.cssText = `
                             left: ${coordsBlockquote.right - elem.offsetWidth}px;
                             top: ${coordsBlockquote.pageBottom}px;
                          `;
             break;
-    }
 
-    // console.warn('window.pageYOffset', currentYScrollout);
-    // console.warn('documentElement', document.documentElement.scrollTop);
+        //TODO Позиционирование внутренних заметок ---------------------------
+        case 'top-in':
+            elem.style.cssText = `
+                            top: ${coordsBlockquote.pageTop}px;
+                            left: ${coordsBlockquote.left}px;
+                         `;
+            break;
+        case 'bottom-in':
+            elem.style.cssText = `
+                            left: ${coordsBlockquote.left}px;
+                            top: ${coordsBlockquote.pageBottom - elem.offsetHeight}px;
+                         `;
+            break;
+        case 'right-in':
+            elem.style.cssText = `
+                            left: ${coordsBlockquote.right - elem.offsetWidth}px;
+                            top: ${coordsBlockquote.pageTop}px;
+                         `;
+            break;
+        case 'left-in':
+            elem.style.cssText = `
+                            left: ${coordsBlockquote.right - elem.offsetWidth}px;
+                            top: ${coordsBlockquote.pageBottom - elem.offsetHeight}px;
+                         `;
+            break;
+    }
 }
 
 //* функция для получения координат элемента, как относительных окна и документа(свои рассчёты координат)
@@ -94,7 +124,6 @@ function getCoords(elem) {
         bottom: bottom,
         left: left,
     };
-    // console.warn(obj);
     return obj;
 }
 //TODO Task 2
