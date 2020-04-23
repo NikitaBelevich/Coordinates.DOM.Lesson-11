@@ -6,15 +6,22 @@ const field = document.querySelector('#field');
 document.addEventListener('click', function (e) {
     let coordsField = field.getBoundingClientRect();
     let {x, y, width, height, top, right, bottom, left} = coordsField;
-    // console.table(coordsField);
 
-    console.group("Координаты поля");
-    console.log('Координаты клика', e.clientX + ':' + e.clientY);
-    console.log('1 угол', `${left}:${top}`);
-    console.log('2 угол', `${right}:${bottom}`);
-    console.log('3 угол', `${x + field.clientLeft}:${y + field.clientTop}`);
-    console.log('4 угол', `${right - field.clientLeft}:${bottom - field.clientTop}`);
-    console.groupEnd("Координаты поля");
+    const targetCoords = e.clientX + ':' + e.clientY;
+    const corners = { // координаты углов элемента
+        1: `${left}:${top}`,
+        2: `${right}:${bottom}`,
+        3: `${x + field.clientLeft}:${y + field.clientTop}`,
+        4: `${right - field.clientLeft}:${bottom - field.clientTop}`,
+    };
+
+    //* вывод координат на страницу
+    const outCoords = document.querySelector('.task1 .outcoords');
+    let resStr = `Координаты клика: ${targetCoords}<br>`;
+    for (let i = 1; i <= 4; i++) {
+        resStr += `${i} угол ${corners[i]}<br>`;
+    }
+    outCoords.innerHTML = resStr;
 });
 //TODO Task 1
 

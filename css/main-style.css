@@ -35,6 +35,19 @@ input[type="number"]{
     text-indent: -20px;
     font: 12px/1 monospace;
 }
+.outcoords{
+    min-height: 110px;
+    padding-left: 20px;
+    color: rgb(255, 123, 0);
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+.task1 > b {
+    color: red;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    text-decoration: underline;
+}
 
 .note {
     position: absolute;
